@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>アナとエルサの ローマじ タイピング ❄️</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --frost-light: #e8f4fd; --frost-mid: #b8dff7; --frost-deep: #5ba3d9;
+    --ice-blue: #7ec8e3; --elsa-blue: #4fc3f7; --elsa-dark: #2196f3;
+    --ana-magenta: #c2185b; --ana-green: #4caf50; --ana-warm: #ff8a65;
+    --purple-accent: #9c78db; --gold-accent: #ffd54f;
+    --text-dark: #1a237e; --text-mid: #5c6bc0;
+    --shadow-frost: 0 4px 20px rgba(91,163,217,0.2);
+  }
+  body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    min-height: 100vh; overflow: hidden; user-select: none;
+    transition: background 1.5s ease;
+  }
+  /* Stage backgrounds */
+  body.stage-0 { background: linear-gradient(180deg, #d4ecfc 0%, #e8f4fd 40%, #f0f7ff 100%); }
+  body.stage-1 { background: linear-gradient(180deg, #cfd8dc 0%, #e0e0e0 20%, #e3f2fd 50%, #f5f5f5 100%); }
+  body.stage-2 { background: linear-gradient(180deg, #1a237e 0%, #283593 20%, #42a5f5 50%, #bbdefb 80%, #e3f2fd 100%); }
+  body.stage-3 { background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 15%, #66bb6a 40%, #a5d6a7 65%, #e8f5e9 100%); }
+  body.stage-4 { background: linear-gradient(180deg, #bf360c 0%, #ff8f00 12%, #ffd54f 25%, #4fc3f7 45%, #e3f2fd 75%, #fff 100%); }
+
+  .snowfall { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .snowflake {
+    position: absolute; color: rgba(255,255,255,0.8); font-size: 20px; top: -30px;
+    animation: snow-fall linear infinite; text-shadow: 0 0 4px rgba(150,200,255,0.5);
+  }
+  @keyframes snow-fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(360deg); opacity: 0.3; }
+  }
+  .app { display: flex; height: 100vh; width: 100vw; position: relative; z-index: 1; }
+
+  /* LEFT PANEL */
+  .chart-panel {
+    width: 340px; min-width: 340px;
+    background: linear-gradient(180deg, rgba(176,223,248,0.5) 0%, rgba(232,244,253,0.8) 100%);
+    border-right: 3px solid rgba(91,163,217,0.3);
+    overflow-y: auto; padding: 10px; scrollbar-width: thin; backdrop-filter: blur(10px);
+  }
+  .elsa-card {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 18px;
+    padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow-frost);
+    display: flex; align-items: center; gap: 12px;
+    border: 2px solid rgba(79,195,247,0.4); position: relative; overflow: hidden;
+  }
+  .elsa-card::before { content:'❄'; position:absolute; top:-5px; right:8px; font-size:24px; opacity:0.3; }
+  .char-avatar {
+    width: 72px; height: 72px; border-radius: 50%; border: 3px solid white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1); object-fit: cover; flex-shrink: 0;
+    background: linear-gradient(135deg, #e3f2fd, #90caf9); transition: box-shadow 0.5s, border-color 0.5s;
+  }
+  .char-info { flex: 1; }
+  .char-name { font-size: 18px; font-weight: 900; color: var(--elsa-dark); }
+  .char-role { font-size: 12px; color: var(--text-mid); font-weight: 700; }
+  .elsa-speech {
+    background: white; border-radius: 16px; padding: 10px 14px; margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 14px; font-weight: 700;
+    color: var(--text-dark); position: relative; border: 2px solid var(--frost-mid);
+    min-height: 44px; display: flex; align-items: center;
+  }
+  .elsa-speech::before {
+    content:''; position:absolute; top:-10px; left:30px; width:0; height:0;
+    border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:10px solid var(--frost-mid);
+  }
+  .elsa-speech::after {
+    content:''; position:absolute; top:-7px; left:32px; width:0; height:0;
+    border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:8px solid white;
+  }
+  .chart-title { text-align:center; font-size:16px; font-weight:900; color:var(--elsa-dark); margin-bottom:8px; letter-spacing:2px; }
+  .chart-table { width:100%; border-collapse:separate; border-spacing:3px; font-size:13px; }
+  .chart-table th {
+    background: linear-gradient(135deg, var(--purple-accent), var(--elsa-dark));
+    color:white; padding:4px 2px; border-radius:6px; font-size:11px; font-weight:700;
+  }
+  .chart-table td {
+    background:rgba(255,255,255,0.9); text-align:center; padding:5px 2px; border-radius:8px;
+    transition:all 0.3s; cursor:default; box-shadow:0 1px 4px rgba(91,163,217,0.1); line-height:1.3;
+  }
+  .chart-table td:hover { transform:scale(1.08); }
+  .chart-table td.highlight {
+    background:linear-gradient(135deg,var(--gold-accent),#ffecb3); transform:scale(1.12);
+    box-shadow:0 4px 16px rgba(255,213,79,0.5); animation:pulse-hl 0.8s ease-in-out infinite alternate;
+  }
+  @keyframes pulse-hl { from{box-shadow:0 4px 16px rgba(255,213,79,0.3)} to{box-shadow:0 4px 24px rgba(255,213,79,0.7)} }
+  .chart-table td.cross-hl {
+    background:linear-gradient(135deg, rgba(79,195,247,0.35), rgba(129,212,250,0.25));
+    box-shadow:0 2px 8px rgba(79,195,247,0.3); transform:scale(1.04);
+  }
+  .chart-table.hard-mode td .chart-romaji { visibility:hidden; }
+  .chart-table.hard-mode th .th-kana { display:none; }
+  .chart-table.hard-mode .row-header .rh-kana { display:none; }
+  .chart-table.hard-mode .row-header .rh-romaji { font-size:14px; opacity:1!important; }
+  .chart-table td.row-header.cross-hl {
+    background:linear-gradient(135deg, var(--elsa-blue), var(--ice-blue))!important;
+    box-shadow:0 2px 8px rgba(79,195,247,0.4); color:white;
+  }
+  .chart-table th.cross-hl-th {
+    background:linear-gradient(135deg, var(--gold-accent), #ffe082)!important;
+    box-shadow:0 2px 8px rgba(255,213,79,0.5); transform:scale(1.08);
+  }
+  .chart-kana { font-size:18px; font-weight:900; color:var(--text-dark); display:block; }
+  .chart-romaji { font-size:11px; font-weight:700; color:var(--elsa-blue); display:block; margin-top:1px; }
+  .chart-table .row-header {
+    background:linear-gradient(135deg,var(--ice-blue),var(--frost-deep));
+    color:white; font-weight:900; font-size:14px; width:36px;
+  }
+  .rh-romaji { font-size:12px; opacity:.85; }
+  .chart-table .row-header.dakuten-header { background:linear-gradient(135deg,#ce93d8,#9c27b0); }
+  .chart-separator td { background:transparent!important; box-shadow:none!important; padding:2px!important; font-size:11px; font-weight:900; color:#9c27b0; letter-spacing:2px; }
+
+  /* CENTER GAME */
+  .game-panel {
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .score-bar { position:absolute; top:16px; left:20px; display:flex; gap:12px; font-size:18px; font-weight:900; z-index:10; }
+  .score-item {
+    background:rgba(255,255,255,0.9); padding:5px 16px; border-radius:50px;
+    box-shadow:var(--shadow-frost); display:flex; align-items:center; gap:6px;
+    border:2px solid rgba(91,163,217,0.2);
+  }
+  .score-item .label { color:var(--text-mid); font-size:14px; }
+  .score-item .value { color:var(--elsa-dark); }
+  .streak-display { color:var(--ana-warm); }
+
+  .top-right-area { position:absolute; top:12px; right:16px; z-index:10; display:flex; flex-direction:column; gap:5px; align-items:flex-end; }
+  .selector-row { display:flex; gap:6px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+  .selector-row select {
+    font-family:inherit; font-size:13px; font-weight:700; padding:4px 10px; border-radius:50px;
+    border:2px solid var(--purple-accent); background:rgba(255,255,255,0.9); color:var(--purple-accent); cursor:pointer; outline:none;
+  }
+  .top-nav { display:flex; gap:5px; justify-content:flex-end; }
+  .nav-btn {
+    width:36px; height:36px; border-radius:50%; border:2px solid rgba(91,163,217,0.3);
+    background:rgba(255,255,255,0.9); font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-frost);
+    transition:all 0.3s; font-family:inherit;
+  }
+  .nav-btn:hover { transform:scale(1.1); border-color:var(--elsa-blue); }
+
+  /* Stage indicator */
+  .stage-indicator {
+    position:absolute; top:60px; left:20px; z-index:10;
+    background:rgba(255,255,255,0.85); border-radius:30px; padding:4px 14px;
+    font-size:12px; font-weight:900; color:var(--text-dark);
+    border:2px solid rgba(91,163,217,0.2); box-shadow:var(--shadow-frost);
+  }
+
+  /* Timer */
+  .timer-display {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    z-index:5; pointer-events:none; display:none;
+  }
+  .timer-display.active { display:block; }
+  .timer-value {
+    font-size:140px; font-weight:900; color:rgba(33,150,243,0.12); line-height:1;
+  }
+  .timer-value.warning { color:rgba(244,67,54,0.15); }
+
+  .question-area { text-align:center; margin-bottom:10px; }
+  .target-kana {
+    font-size:160px; font-weight:900; color:var(--text-dark); line-height:1;
+    text-shadow:3px 3px 0 rgba(91,163,217,0.15); animation:bounce-in 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
+  }
+  @keyframes bounce-in {
+    0%{transform:scale(0.3) rotate(-10deg);opacity:0} 60%{transform:scale(1.1) rotate(3deg)} 100%{transform:scale(1) rotate(0);opacity:1}
+  }
+  .target-emoji { font-size:40px; margin-top:2px; min-height:44px; }
+  .target-hint { font-size:34px; color:var(--purple-accent); font-weight:700; margin-top:6px; min-height:48px; }
+  .hint-letter { display:inline-block; margin:0 3px; padding:4px 12px; border-radius:10px; background:rgba(156,120,219,0.1); transition:all 0.2s; }
+  .hint-letter.typed { background:var(--ana-green); color:white; transform:scale(1.1); }
+  .hint-letter.current { background:var(--purple-accent); color:white; animation:blink-c 1s ease-in-out infinite; }
+  @keyframes blink-c { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .input-display { font-size:44px; font-weight:900; color:var(--elsa-blue); min-height:56px; margin-top:6px; letter-spacing:8px; }
+
+  /* ANA */
+  .ana-feedback-area { display:flex; align-items:center; gap:12px; margin-top:10px; min-height:80px; }
+  .ana-avatar-small {
+    width:60px; height:60px; border-radius:50%; border:3px solid white;
+    box-shadow:0 2px 12px rgba(194,24,91,0.2); object-fit:cover; flex-shrink:0;
+    background:linear-gradient(135deg,#f8bbd0,#f48fb1); transition:transform 0.3s, box-shadow 0.5s, border-color 0.5s;
+  }
+  .ana-avatar-small.bounce { animation:ana-bounce 0.5s ease; }
+  @keyframes ana-bounce { 0%,100%{transform:scale(1)} 30%{transform:scale(1.2) rotate(-5deg)} 60%{transform:scale(0.95) rotate(3deg)} }
+  .ana-speech-bubble {
+    background:linear-gradient(135deg,#fce4ec,#fff); border:2px solid #f48fb1;
+    border-radius:18px; padding:10px 18px; font-size:22px; font-weight:900; color:var(--ana-magenta);
+    position:relative; min-width:180px; text-align:center;
+    box-shadow:0 3px 12px rgba(194,24,91,0.1); transition:all 0.3s; min-height:48px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ana-speech-bubble::before {
+    content:''; position:absolute; left:-12px; top:50%; transform:translateY(-50%);
+    width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-right:12px solid #f48fb1;
+  }
+  .ana-speech-bubble.correct { background:linear-gradient(135deg,#e8f5e9,#fff); border-color:var(--ana-green); color:#2e7d32; animation:pop 0.4s ease; }
+  .ana-speech-bubble.correct::before { border-right-color:var(--ana-green); }
+  .ana-speech-bubble.wrong { background:linear-gradient(135deg,#fff3e0,#fff); border-color:var(--ana-warm); color:#e65100; animation:shake 0.4s ease; }
+  .ana-speech-bubble.wrong::before { border-right-color:var(--ana-warm); }
+  @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.1)} 100%{transform:scale(1)} }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+
+  .snow-reward { font-size:50px; position:absolute; animation:float-up 1.5s ease-out forwards; pointer-events:none; z-index:100; filter:drop-shadow(0 0 6px rgba(79,195,247,0.6)); }
+  @keyframes float-up { 0%{opacity:1;transform:translateY(0) scale(0.5) rotate(0)} 50%{opacity:1;transform:translateY(-120px) scale(1.2) rotate(180deg)} 100%{opacity:0;transform:translateY(-250px) scale(0.8) rotate(360deg)} }
+  .ice-confetti { position:absolute; border-radius:50%; animation:ice-fall 1.5s ease-out forwards; pointer-events:none; z-index:99; opacity:0.8; }
+  @keyframes ice-fall { 0%{opacity:0.8;transform:translateY(0) rotate(0) scale(1)} 100%{opacity:0;transform:translateY(350px) rotate(720deg) scale(0.2)} }
+
+  .keyboard-hint { position:absolute; bottom:70px; display:flex; gap:5px; flex-wrap:wrap; justify-content:center; max-width:480px; }
+  .key-cap {
+    display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px;
+    background:rgba(255,255,255,0.9); border:2px solid rgba(91,163,217,0.3);
+    border-bottom:4px solid rgba(91,163,217,0.4); border-radius:8px;
+    font-size:18px; font-weight:900; color:var(--text-dark); transition:all 0.15s;
+  }
+  .key-cap.active { background:var(--gold-accent); border-color:#ffa000; transform:translateY(2px); border-bottom-width:2px; }
+  .key-cap.next-key { background:#e3f2fd; border-color:var(--elsa-blue); animation:pulse-key 1s ease-in-out infinite alternate; }
+  @keyframes pulse-key { from{box-shadow:0 0 0 0 rgba(126,200,227,0.4)} to{box-shadow:0 0 0 8px rgba(126,200,227,0)} }
+
+  .progress-bar-container { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); width:55%; max-width:450px; }
+  .progress-bar-bg { background:rgba(91,163,217,0.1); border-radius:20px; height:18px; overflow:hidden; border:2px solid rgba(91,163,217,0.2); }
+  .progress-bar-fill { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--ice-blue),var(--elsa-blue),var(--purple-accent)); transition:width 0.5s ease; width:0%; }
+  .progress-label { text-align:center; font-size:13px; color:var(--text-mid); margin-top:4px; font-weight:700; }
+
+  /* START SCREEN */
+  .start-screen {
+    position:fixed; inset:0;
+    background:linear-gradient(180deg,#1a237e 0%,#283593 20%,#5ba3d9 60%,#b8dff7 85%,#e8f4fd 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    z-index:1000; transition:opacity 0.6s,transform 0.6s; overflow:hidden;
+  }
+  .start-screen.hidden { opacity:0; transform:scale(1.1); pointer-events:none; }
+  .start-characters { display:flex; align-items:flex-end; gap:20px; margin-bottom:24px; }
+  .start-char-img {
+    width:140px; height:140px; border-radius:50%; border:4px solid rgba(255,255,255,0.6);
+    box-shadow:0 6px 30px rgba(0,0,0,0.2); object-fit:cover;
+    background:linear-gradient(135deg,#e3f2fd,#90caf9); animation:float-char 3s ease-in-out infinite;
+  }
+  .start-char-img:last-child { animation-delay:0.5s; }
+  @keyframes float-char { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .start-snowflakes { font-size:40px; margin-bottom:10px; letter-spacing:20px; opacity:0.7; animation:twinkle 2s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .start-title { font-size:48px; font-weight:900; color:white; text-shadow:2px 2px 8px rgba(0,0,0,0.3),0 0 40px rgba(126,200,227,0.5); margin-bottom:6px; letter-spacing:4px; }
+  .start-subtitle { font-size:22px; color:rgba(255,255,255,0.9); margin-bottom:14px; }
+  .start-stats-row { display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap; justify-content:center; }
+  .start-stat { background:rgba(255,255,255,0.2); border-radius:30px; padding:6px 16px; font-size:15px; font-weight:700; color:rgba(255,255,255,0.95); border:1px solid rgba(255,255,255,0.3); }
+  .start-stat strong { color:var(--gold-accent); font-size:18px; }
+  .start-btn {
+    font-family:inherit; font-size:30px; font-weight:900; padding:16px 56px; border:3px solid rgba(255,255,255,0.6);
+    border-radius:60px; background:linear-gradient(135deg,#e3f2fd,white); color:var(--elsa-dark);
+    cursor:pointer; box-shadow:0 8px 30px rgba(0,0,0,0.2),0 0 40px rgba(126,200,227,0.3);
+    transition:all 0.3s; letter-spacing:4px;
+  }
+  .start-btn:hover { transform:translateY(-4px) scale(1.05); background:white; }
+  .start-screen .snowfall-start { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+
+  /* ROUND OVERLAY */
+  .round-overlay {
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse,rgba(79,195,247,0.15) 0%,rgba(232,244,253,0.6) 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    z-index:50; opacity:0; pointer-events:none; transition:opacity 0.5s;
+  }
+  .round-overlay.visible { opacity:1; pointer-events:auto; }
+  .round-trophy { font-size:100px; animation:bounce-in 0.6s cubic-bezier(0.68,-0.55,0.265,1.55); }
+  .round-message { font-size:36px; font-weight:900; color:var(--elsa-dark); text-shadow:0 2px 8px rgba(91,163,217,0.3); margin-top:10px; }
+
+  /* MODAL */
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(26,35,126,0.65); backdrop-filter:blur(6px);
+    z-index:500; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity 0.3s;
+  }
+  .modal-overlay.visible { opacity:1; pointer-events:auto; }
+  .modal-container {
+    background:linear-gradient(180deg,#e3f2fd,#fff); border-radius:24px; padding:28px;
+    max-width:620px; width:92%; max-height:82vh; overflow-y:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3); border:3px solid rgba(79,195,247,0.5);
+    position:relative; scrollbar-width:thin;
+  }
+  .modal-title { text-align:center; font-size:26px; font-weight:900; color:var(--elsa-dark); margin-bottom:16px; letter-spacing:2px; }
+  .modal-close {
+    position:absolute; top:12px; right:16px; font-size:26px; cursor:pointer; color:var(--text-mid);
+    background:none; border:none; font-family:inherit; font-weight:900;
+    width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+  .modal-close:hover { background:rgba(91,163,217,0.1); }
+  .modal-subtitle { text-align:center; font-size:16px; font-weight:700; color:var(--text-mid); margin-bottom:16px; }
+
+  .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
+  .badge-card { background:white; border-radius:16px; padding:12px 8px; text-align:center; border:2px solid rgba(91,163,217,0.15); transition:all 0.3s; }
+  .badge-card.unlocked { border-color:var(--gold-accent); background:linear-gradient(135deg,#fffde7,#fff); box-shadow:0 3px 12px rgba(255,213,79,0.2); }
+  .badge-card.unlocked:hover { transform:scale(1.05); }
+  .badge-card.locked { opacity:0.4; filter:grayscale(0.6); }
+  .badge-icon { font-size:38px; display:block; margin-bottom:4px; }
+  .badge-name { font-size:12px; font-weight:900; color:var(--text-dark); }
+  .badge-desc { font-size:10px; color:var(--text-mid); font-weight:700; margin-top:2px; }
+
+  .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px; }
+  .stat-card { background:white; border-radius:16px; padding:12px; text-align:center; border:2px solid rgba(91,163,217,0.15); }
+  .stat-value { font-size:28px; font-weight:900; color:var(--elsa-dark); }
+  .stat-label { font-size:12px; color:var(--text-mid); font-weight:700; margin-top:2px; }
+  .accuracy-section-title { font-size:15px; font-weight:900; color:var(--elsa-dark); text-align:center; margin-bottom:10px; }
+  .accuracy-chart { width:100%; border-collapse:separate; border-spacing:2px; }
+  .accuracy-chart th { font-size:11px; font-weight:700; color:var(--text-mid); padding:3px; }
+  .accuracy-chart td { text-align:center; padding:4px 2px; border-radius:6px; font-weight:700; line-height:1.2; }
+  .acc-great { background:#c8e6c9; color:#2e7d32; }
+  .acc-ok { background:#fff9c4; color:#f57f17; }
+  .acc-weak { background:#ffcdd2; color:#c62828; }
+  .acc-none { background:#f5f5f5; color:#bdbdbd; }
+
+  /* BADGE TOAST */
+  .badge-toast {
+    position:fixed; top:-120px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,#fffde7,#fff); border:3px solid var(--gold-accent);
+    border-radius:20px; padding:12px 24px; display:flex; align-items:center; gap:14px;
+    box-shadow:0 8px 30px rgba(255,213,79,0.4); z-index:700; transition:top 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
+  }
+  .badge-toast.visible { top:24px; }
+  .badge-toast-icon { font-size:40px; animation:badge-spin 0.6s ease; }
+  @keyframes badge-spin { 0%{transform:scale(0) rotate(-180deg)} 60%{transform:scale(1.2) rotate(10deg)} 100%{transform:scale(1) rotate(0)} }
+  .badge-toast-title { font-size:12px; color:var(--text-mid); font-weight:700; }
+  .badge-toast-name { font-size:18px; font-weight:900; color:var(--text-dark); }
+
+  /* COSTUME EFFECTS */
+  .costume-silver { box-shadow:0 0 15px rgba(192,192,192,0.6),0 2px 12px rgba(0,0,0,0.1)!important; border-color:#c0c0c0!important; }
+  .costume-gold { box-shadow:0 0 20px rgba(255,215,0,0.6)!important; border-color:#ffd700!important; animation:glow-gold 2s ease-in-out infinite alternate!important; }
+  @keyframes glow-gold { from{box-shadow:0 0 15px rgba(255,215,0,0.4)} to{box-shadow:0 0 25px rgba(255,215,0,0.8)} }
+  .costume-diamond { box-shadow:0 0 25px rgba(100,200,255,0.7),0 0 50px rgba(100,200,255,0.3)!important; border-color:#64b5f6!important; animation:glow-dia 2s ease-in-out infinite alternate!important; }
+  @keyframes glow-dia { from{box-shadow:0 0 20px rgba(100,200,255,0.5),0 0 40px rgba(200,100,255,0.2)} to{box-shadow:0 0 30px rgba(100,200,255,0.9),0 0 60px rgba(200,100,255,0.5)} }
+  .costume-ultimate { box-shadow:0 0 30px rgba(255,215,0,0.8),0 0 60px rgba(100,200,255,0.5)!important; border-color:#ffd700!important; animation:glow-ult 3s ease-in-out infinite!important; }
+  @keyframes glow-ult {
+    0%{box-shadow:0 0 20px rgba(255,215,0,0.5),0 0 40px rgba(100,200,255,0.3)}
+    33%{box-shadow:0 0 25px rgba(100,200,255,0.6),0 0 50px rgba(200,100,255,0.4)}
+    66%{box-shadow:0 0 25px rgba(200,100,255,0.5),0 0 50px rgba(255,215,0,0.4)}
+    100%{box-shadow:0 0 20px rgba(255,215,0,0.5),0 0 40px rgba(100,200,255,0.3)}
+  }
+
+  /* STAGE TRANSITION */
+  .stage-trans {
+    position:fixed; inset:0; z-index:800; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:rgba(26,35,126,0.85); backdrop-filter:blur(8px); opacity:0; pointer-events:none; transition:opacity 0.5s;
+  }
+  .stage-trans.visible { opacity:1; pointer-events:auto; }
+  .stage-trans-icon { font-size:100px; animation:bounce-in 0.6s cubic-bezier(0.68,-0.55,0.265,1.55); }
+  .stage-trans-text { font-size:28px; font-weight:900; color:white; margin-top:16px; text-shadow:0 2px 10px rgba(0,0,0,0.3); }
+  .stage-trans-sub { font-size:18px; color:rgba(255,255,255,0.8); margin-top:8px; font-weight:700; }
+
+  /* STORY MODE */
+  .story-overlay {
+    position:fixed; inset:0; z-index:400;
+    background:linear-gradient(180deg,#1a237e 0%,#283593 25%,#5ba3d9 55%,#b8dff7 80%,#e8f4fd 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity 0.5s;
+  }
+  .story-overlay.visible { opacity:1; pointer-events:auto; }
+  .story-emoji { font-size:80px; margin-bottom:16px; animation:float-char 3s ease-in-out infinite; }
+  .story-narration {
+    font-size:22px; font-weight:700; color:white; text-align:center;
+    max-width:600px; line-height:1.6; margin-bottom:24px; text-shadow:1px 1px 4px rgba(0,0,0,0.3);
+  }
+  .story-prompt-area { text-align:center; }
+  .story-kana { font-size:64px; font-weight:900; color:white; text-shadow:2px 2px 8px rgba(0,0,0,0.3); margin-bottom:8px; }
+  .story-hint { min-height:48px; margin-bottom:8px; }
+  .story-input-display { font-size:36px; font-weight:900; color:var(--gold-accent); min-height:44px; letter-spacing:6px; }
+  .story-progress { color:rgba(255,255,255,0.7); font-size:14px; font-weight:700; margin-top:20px; }
+  .story-complete {
+    font-size:32px; font-weight:900; color:var(--gold-accent); text-shadow:0 0 20px rgba(255,213,79,0.5);
+    animation:bounce-in 0.5s ease; margin-top:16px;
+  }
+
+  /* TIME ATTACK RESULT */
+  .ta-result {
+    position:absolute; inset:0; z-index:50;
+    background:radial-gradient(ellipse,rgba(79,195,247,0.2),rgba(232,244,253,0.7));
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity 0.5s;
+  }
+  .ta-result.visible { opacity:1; pointer-events:auto; }
+  .ta-result-title { font-size:36px; font-weight:900; color:var(--elsa-dark); margin-bottom:16px; }
+  .ta-result-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px; }
+  .ta-result-card { background:rgba(255,255,255,0.95); border-radius:16px; padding:16px 24px; text-align:center; border:2px solid rgba(91,163,217,0.2); }
+  .ta-result-val { font-size:32px; font-weight:900; color:var(--elsa-dark); }
+  .ta-result-label { font-size:13px; color:var(--text-mid); font-weight:700; margin-top:4px; }
+  .ta-again-btn {
+    font-family:inherit; font-size:20px; font-weight:900; padding:12px 40px;
+    border:3px solid var(--elsa-blue); border-radius:50px; background:white; color:var(--elsa-dark);
+    cursor:pointer; transition:all 0.3s;
+  }
+  .ta-again-btn:hover { background:var(--elsa-blue); color:white; }
+
+  @media (max-width:1000px) {
+    .chart-panel { width:280px; min-width:280px; }
+    .target-kana { font-size:120px; }
+    .char-avatar { width:56px; height:56px; }
+  }
+</style>
+</head>
+<body class="stage-0">
+<div class="snowfall" id="snowfall"></div>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <div class="snowfall-start" id="startSnowfall"></div>
+  <div class="start-characters">
+    <img class="start-char-img" src="logo/elsa.png" alt="エルサ" onerror="this.style.background='linear-gradient(135deg,#81d4fa,#4fc3f7)'">
+    <img class="start-char-img" src="logo/ana.png" alt="アナ" onerror="this.style.background='linear-gradient(135deg,#f48fb1,#e91e63)'">
+  </div>
+  <div class="start-snowflakes">❄ ❄ ❄</div>
+  <div class="start-title">ローマじ タイピング</div>
+  <div class="start-subtitle">エルサとアナと いっしょに れんしゅう！</div>
+  <div class="start-stats-row">
+    <span class="start-stat">きょう: <strong id="startToday">0</strong>もん</span>
+    <span class="start-stat">バッジ: <strong id="startBadge">0</strong>/<strong id="startBadgeT">15</strong></span>
+    <span class="start-stat">ベスト: <strong id="startHigh">0</strong>てん</span>
+  </div>
+  <button class="start-btn" id="startBtn">❄ はじめる ❄</button>
+</div>
+
+<!-- MAIN APP -->
+<div class="app" id="app">
+  <div class="chart-panel" id="chartPanel">
+    <div class="elsa-card">
+      <img class="char-avatar" id="elsaAvatar" src="logo/elsa.png" alt="エルサ"
+        onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%2381d4fa%22/><text x=%2250%22 y=%2260%22 text-anchor=%22middle%22 font-size=%2236%22 fill=%22white%22 font-weight=%22bold%22>E</text></svg>'">
+      <div class="char-info">
+        <div class="char-name">❄ エルサ</div>
+        <div class="char-role">せんせいやく ✨</div>
+      </div>
+    </div>
+    <div class="elsa-speech" id="elsaSpeech">ひだりの ひょうを みて、キーボードを うってみてね！</div>
+    <div class="chart-title">❄ ローマじ ひょう ❄</div>
+    <table class="chart-table" id="chartTable"></table>
+  </div>
+
+  <div class="game-panel" id="gamePanel">
+    <div class="score-bar">
+      <div class="score-item"><span class="label">❄</span><span class="value" id="scoreValue">0</span></div>
+      <div class="score-item"><span class="label">🔥</span><span class="value streak-display" id="streakValue">0</span></div>
+    </div>
+
+    <div class="stage-indicator" id="stageIndicator">🏰 アレンデールの おしろ</div>
+
+    <div class="top-right-area">
+      <div class="selector-row">
+        <select id="modeSelect">
+          <option value="normal">ノーマル</option>
+          <option value="timeattack">タイムアタック</option>
+          <option value="story">ストーリー</option>
+        </select>
+        <select id="difficultySelect">
+          <option value="easy" selected>かんたん</option>
+          <option value="hard">むずかしい</option>
+        </select>
+        <select id="timeSelect" style="display:none">
+          <option value="30">30びょう</option>
+          <option value="60" selected>60びょう</option>
+        </select>
+      </div>
+      <div class="selector-row">
+        <select id="gameLevelSelect">
+          <option value="1" selected>レベル1（1もじ）</option>
+          <option value="2">レベル2（2もじ）</option>
+          <option value="3">レベル3（3もじ）</option>
+          <option value="4">Frozenチャレンジ</option>
+        </select>
+        <select id="levelSelect">
+          <optgroup label="きほん">
+            <option value="0">あ行（かんたん）</option>
+            <option value="1">か行まで</option><option value="2">さ行まで</option>
+            <option value="3">た行まで</option><option value="4">な行まで</option>
+            <option value="5">は行まで</option><option value="6">ま行まで</option>
+            <option value="7">や行まで</option><option value="8">ら行まで</option>
+            <option value="9">わ行まで</option>
+          </optgroup>
+          <optgroup label="だくおん">
+            <option value="10">+が行</option><option value="11">+ざ行</option>
+            <option value="12">+だ行</option><option value="13">+ば行</option>
+            <option value="14" selected>ぜんぶ！</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="top-nav">
+        <button class="nav-btn" onclick="showCollection()" title="コレクション">🏆</button>
+        <button class="nav-btn" onclick="showStats()" title="せいせき">📊</button>
+      </div>
+    </div>
+
+    <!-- Timer (background) -->
+    <div class="timer-display" id="timerDisplay"><div class="timer-value" id="timerValue">60</div></div>
+
+    <div class="question-area">
+      <div class="target-kana" id="targetKana">あ</div>
+      <div class="target-emoji" id="targetEmoji"></div>
+      <div class="target-hint" id="targetHint"></div>
+    </div>
+    <div class="input-display" id="inputDisplay"></div>
+
+    <div class="ana-feedback-area">
+      <img class="ana-avatar-small" id="anaAvatar" src="logo/ana.png" alt="アナ"
+        onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23f48fb1%22/><text x=%2250%22 y=%2260%22 text-anchor=%22middle%22 font-size=%2236%22 fill=%22white%22 font-weight=%22bold%22>A</text></svg>'">
+      <div class="ana-speech-bubble" id="anaSpeech">がんばって～！</div>
+    </div>
+
+    <div class="keyboard-hint" id="keyboardHint"></div>
+    <div class="progress-bar-container" id="progressContainer">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 10 もん</div>
+    </div>
+
+    <div class="round-overlay" id="roundOverlay">
+      <div class="round-trophy">👑</div>
+      <div class="round-message" id="roundMessage">クリア！おめでとう！</div>
+    </div>
+
+    <div class="ta-result" id="taResult">
+      <div class="ta-result-title">⏱ タイムアップ！</div>
+      <div class="ta-result-grid">
+        <div class="ta-result-card"><div class="ta-result-val" id="taCorrect">0</div><div class="ta-result-label">せいかい</div></div>
+        <div class="ta-result-card"><div class="ta-result-val" id="taScore">0</div><div class="ta-result-label">スコア</div></div>
+        <div class="ta-result-card"><div class="ta-result-val" id="taAccuracy">0%</div><div class="ta-result-label">せいかくさ</div></div>
+      </div>
+      <button class="ta-again-btn" onclick="startTimeAttack()">❄ もういちど ❄</button>
+    </div>
+  </div>
+</div>
+
+<!-- STORY OVERLAY -->
+<div class="story-overlay" id="storyOverlay">
+  <div class="story-emoji" id="storyEmoji">🏰</div>
+  <div class="story-narration" id="storyNarration"></div>
+  <div class="story-prompt-area">
+    <div class="story-kana" id="storyKana"></div>
+    <div class="story-hint" id="storyHint"></div>
+    <div class="story-input-display" id="storyInputDisplay"></div>
+  </div>
+  <div class="story-progress" id="storyProgress"></div>
+</div>
+
+<!-- COLLECTION MODAL -->
+<div class="modal-overlay" id="collectionModal" onclick="if(event.target===this)hideModal('collectionModal')">
+  <div class="modal-container">
+    <button class="modal-close" onclick="hideModal('collectionModal')">✕</button>
+    <div class="modal-title">🏆 コレクション ❄</div>
+    <div class="modal-subtitle"><span id="unlockedCount">0</span> / <span id="totalBadgeCount">15</span> ゲット！</div>
+    <div class="badge-grid" id="badgeGrid"></div>
+  </div>
+</div>
+
+<!-- STATS MODAL -->
+<div class="modal-overlay" id="statsModal" onclick="if(event.target===this)hideModal('statsModal')">
+  <div class="modal-container">
+    <button class="modal-close" onclick="hideModal('statsModal')">✕</button>
+    <div class="modal-title">📊 せいせき ❄</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">ごうけい せいかい</div></div>
+      <div class="stat-card"><div class="stat-value" id="statStreak">0</div><div class="stat-label">さいこう れんぞく</div></div>
+      <div class="stat-card"><div class="stat-value" id="statHigh">0</div><div class="stat-label">ハイスコア</div></div>
+      <div class="stat-card"><div class="stat-value" id="statRounds">0</div><div class="stat-label">ラウンド クリア</div></div>
+    </div>
+    <div class="accuracy-section-title">もじべつ せいかいりつ</div>
+    <table class="accuracy-chart" id="accuracyChart"></table>
+  </div>
+</div>
+
+<!-- STAGE TRANSITION -->
+<div class="stage-trans" id="stageTrans">
+  <div class="stage-trans-icon" id="stageTransIcon">🏰</div>
+  <div class="stage-trans-text" id="stageTransText">ステージ1</div>
+  <div class="stage-trans-sub" id="stageTransSub">アレンデールの おしろ</div>
+</div>
+
+<!-- BADGE TOAST -->
+<div class="badge-toast" id="badgeToast">
+  <div class="badge-toast-icon" id="badgeToastIcon">❄️</div>
+  <div>
+    <div class="badge-toast-title">バッジ ゲット！</div>
+    <div class="badge-toast-name" id="badgeToastName"></div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const ROMAJI_TABLE = [
+  { row:'あ', consonant:'', chars:[
+    {kana:'あ',romaji:'a'},{kana:'い',romaji:'i'},{kana:'う',romaji:'u'},{kana:'え',romaji:'e'},{kana:'お',romaji:'o'}
+  ]},
+  { row:'か', consonant:'k', chars:[
+    {kana:'か',romaji:'ka'},{kana:'き',romaji:'ki'},{kana:'く',romaji:'ku'},{kana:'け',romaji:'ke'},{kana:'こ',romaji:'ko'}
+  ]},
+  { row:'さ', consonant:'s', chars:[
+    {kana:'さ',romaji:'sa'},{kana:'し',romaji:'si',alt:['shi']},{kana:'す',romaji:'su'},{kana:'せ',romaji:'se'},{kana:'そ',romaji:'so'}
+  ]},
+  { row:'た', consonant:'t', chars:[
+    {kana:'た',romaji:'ta'},{kana:'ち',romaji:'ti',alt:['chi']},{kana:'つ',romaji:'tu',alt:['tsu']},{kana:'て',romaji:'te'},{kana:'と',romaji:'to'}
+  ]},
+  { row:'な', consonant:'n', chars:[
+    {kana:'な',romaji:'na'},{kana:'に',romaji:'ni'},{kana:'ぬ',romaji:'nu'},{kana:'ね',romaji:'ne'},{kana:'の',romaji:'no'}
+  ]},
+  { row:'は', consonant:'h', chars:[
+    {kana:'は',romaji:'ha'},{kana:'ひ',romaji:'hi'},{kana:'ふ',romaji:'hu',alt:['fu']},{kana:'へ',romaji:'he'},{kana:'ほ',romaji:'ho'}
+  ]},
+  { row:'ま', consonant:'m', chars:[
+    {kana:'ま',romaji:'ma'},{kana:'み',romaji:'mi'},{kana:'む',romaji:'mu'},{kana:'め',romaji:'me'},{kana:'も',romaji:'mo'}
+  ]},
+  { row:'や', consonant:'y', chars:[
+    {kana:'や',romaji:'ya'},{kana:'',romaji:''},{kana:'ゆ',romaji:'yu'},{kana:'',romaji:''},{kana:'よ',romaji:'yo'}
+  ]},
+  { row:'ら', consonant:'r', chars:[
+    {kana:'ら',romaji:'ra'},{kana:'り',romaji:'ri'},{kana:'る',romaji:'ru'},{kana:'れ',romaji:'re'},{kana:'ろ',romaji:'ro'}
+  ]},
+  { row:'わ', consonant:'w', chars:[
+    {kana:'わ',romaji:'wa'},{kana:'',romaji:''},{kana:'を',romaji:'wo'},{kana:'',romaji:''},{kana:'ん',romaji:'nn',alt:['n']}
+  ]},
+  // 濁音・半濁音
+  { row:'が', consonant:'g', dakuten:true, chars:[
+    {kana:'が',romaji:'ga'},{kana:'ぎ',romaji:'gi'},{kana:'ぐ',romaji:'gu'},{kana:'げ',romaji:'ge'},{kana:'ご',romaji:'go'}
+  ]},
+  { row:'ざ', consonant:'z', dakuten:true, chars:[
+    {kana:'ざ',romaji:'za'},{kana:'じ',romaji:'zi',alt:['ji']},{kana:'ず',romaji:'zu'},{kana:'ぜ',romaji:'ze'},{kana:'ぞ',romaji:'zo'}
+  ]},
+  { row:'だ', consonant:'d', dakuten:true, chars:[
+    {kana:'だ',romaji:'da'},{kana:'ぢ',romaji:'di'},{kana:'づ',romaji:'du'},{kana:'で',romaji:'de'},{kana:'ど',romaji:'do'}
+  ]},
+  { row:'ば', consonant:'b', dakuten:true, chars:[
+    {kana:'ば',romaji:'ba'},{kana:'び',romaji:'bi'},{kana:'ぶ',romaji:'bu'},{kana:'べ',romaji:'be'},{kana:'ぼ',romaji:'bo'}
+  ]},
+  { row:'ぱ', consonant:'p', dakuten:true, chars:[
+    {kana:'ぱ',romaji:'pa'},{kana:'ぴ',romaji:'pi'},{kana:'ぷ',romaji:'pu'},{kana:'ぺ',romaji:'pe'},{kana:'ぽ',romaji:'po'}
+  ]},
+];
+
+const WORD_LIST_2 = [
+  {word:'あい',emoji:'💕'},{word:'いえ',emoji:'🏠'},{word:'あお',emoji:'🔵'},{word:'うえ',emoji:'⬆️'},
+  {word:'あき',emoji:'🍂'},{word:'えき',emoji:'🚉'},{word:'こい',emoji:'🐟'},{word:'かお',emoji:'😊'},
+  {word:'いけ',emoji:'💧'},{word:'かき',emoji:'🍊'},{word:'けい',emoji:'👧'},
+  {word:'うし',emoji:'🐄'},{word:'すし',emoji:'🍣'},{word:'しか',emoji:'🦌'},{word:'かさ',emoji:'☂️'},
+  {word:'あさ',emoji:'🌅'},{word:'いす',emoji:'🪑'},{word:'いし',emoji:'🪨'},{word:'しお',emoji:'🧂'},
+  {word:'たこ',emoji:'🐙'},{word:'つき',emoji:'🌙'},{word:'うた',emoji:'🎶'},{word:'おと',emoji:'🎵'},
+  {word:'くつ',emoji:'👟'},{word:'そと',emoji:'🌳'},{word:'いと',emoji:'🧵'},
+  {word:'いぬ',emoji:'🐶'},{word:'ねこ',emoji:'🐱'},{word:'かに',emoji:'🦀'},{word:'なつ',emoji:'🌻'},
+  {word:'おに',emoji:'👹'},{word:'なし',emoji:'🍐'},
+  {word:'はな',emoji:'🌸'},{word:'ほし',emoji:'⭐'},{word:'はし',emoji:'🥢'},{word:'ふね',emoji:'🚢'},
+  {word:'ほね',emoji:'🦴'},{word:'はこ',emoji:'📦'},{word:'はち',emoji:'🐝'},{word:'ひと',emoji:'👤'},
+  {word:'うま',emoji:'🐴'},{word:'うみ',emoji:'🌊'},{word:'もも',emoji:'🍑'},{word:'むし',emoji:'🐛'},
+  {word:'あめ',emoji:'🍬'},{word:'くま',emoji:'🐻'},{word:'くも',emoji:'☁️'},{word:'かめ',emoji:'🐢'},
+  {word:'やま',emoji:'⛰️'},{word:'ゆき',emoji:'❄️'},{word:'ゆめ',emoji:'💭'},
+  {word:'そら',emoji:'🌤️'},{word:'とり',emoji:'🐦'},{word:'くり',emoji:'🌰'},{word:'もり',emoji:'🌲'},
+  {word:'りす',emoji:'🐿️'},{word:'さる',emoji:'🐵'},{word:'はる',emoji:'🌸'},{word:'さら',emoji:'🍽️'},
+  {word:'わに',emoji:'🐊'},
+  {word:'かぎ',emoji:'🔑'},{word:'かご',emoji:'🧺'},
+  {word:'かぜ',emoji:'🌬️'},{word:'みず',emoji:'💧'},{word:'すず',emoji:'🔔'},
+  {word:'うで',emoji:'💪'},{word:'えび',emoji:'🦐'},{word:'へび',emoji:'🐍'},{word:'ぶた',emoji:'🐷'},{word:'かば',emoji:'🦛'},
+];
+
+const WORD_LIST_3 = [
+  {word:'さくら',emoji:'🌸'},{word:'きのこ',emoji:'🍄'},{word:'すいか',emoji:'🍉'},
+  {word:'くるま',emoji:'🚗'},{word:'きつね',emoji:'🦊'},{word:'かえる',emoji:'🐸'},
+  {word:'あひる',emoji:'🦆'},{word:'こおり',emoji:'🧊'},{word:'おはな',emoji:'🌺'},
+  {word:'とけい',emoji:'⏰'},{word:'たぬき',emoji:'🦝'},{word:'はさみ',emoji:'✂️'},
+  {word:'おかし',emoji:'🍪'},{word:'ことり',emoji:'🐤'},{word:'いるか',emoji:'🐬'},
+  {word:'まつり',emoji:'🎆'},{word:'あさひ',emoji:'🌅'},{word:'おもち',emoji:'🍡'},
+  {word:'おなか',emoji:'😋'},{word:'ふくろ',emoji:'👝'},{word:'ひかり',emoji:'✨'},
+  {word:'まくら',emoji:'🛏️'},{word:'くもり',emoji:'☁️'},{word:'からす',emoji:'🐦‍⬛'},
+  {word:'みかん',emoji:'🍊'},{word:'ふとん',emoji:'🛏️'},{word:'てんき',emoji:'☀️'},
+  {word:'りんご',emoji:'🍎'},{word:'うさぎ',emoji:'🐰'},{word:'いちご',emoji:'🍓'},
+  {word:'たまご',emoji:'🥚'},{word:'だんご',emoji:'🍡'},{word:'ぶどう',emoji:'🍇'},
+  {word:'ねずみ',emoji:'🐭'},{word:'ひつじ',emoji:'🐑'},{word:'とんぼ',emoji:'🪰'},
+  {word:'めがね',emoji:'👓'},{word:'おばけ',emoji:'👻'},{word:'しずく',emoji:'💧'},
+  {word:'ぱんだ',emoji:'🐼'},{word:'でんき',emoji:'💡'},
+];
+
+// Frozen テーマ ことば
+const WORD_LIST_FROZEN = [
+  {word:'ゆき',emoji:'❄️'},{word:'こおり',emoji:'🧊'},{word:'まほう',emoji:'✨'},
+  {word:'おしろ',emoji:'🏰'},{word:'そり',emoji:'🛷'},{word:'ふゆ',emoji:'❄️'},
+  {word:'おうじょ',emoji:'👸'},{word:'ゆうき',emoji:'⭐'},{word:'ともだち',emoji:'💕'},
+  {word:'ひかり',emoji:'✨'},{word:'かぜ',emoji:'🌬️'},{word:'ほし',emoji:'⭐'},
+  {word:'にじ',emoji:'🌈'},{word:'つらら',emoji:'🧊'},{word:'はな',emoji:'🌸'},
+  {word:'うた',emoji:'🎵'},{word:'なかま',emoji:'💕'},{word:'いのち',emoji:'❤️'},
+  {word:'おもいで',emoji:'💭'},{word:'きらきら',emoji:'✨'},{word:'とびら',emoji:'🚪'},
+  {word:'あい',emoji:'❤️'},{word:'はる',emoji:'🌸'},{word:'おうこく',emoji:'👑'},
+  {word:'ゆきだるま',emoji:'⛄'},{word:'ありのまま',emoji:'✨'},
+];
+
+// ===== STAGES =====
+const STAGES = [
+  { name:'アレンデールの おしろ', icon:'🏰', min:0 },
+  { name:'ゆきやま', icon:'⛰️', min:3 },
+  { name:'こおりの おしろ', icon:'🏔️', min:6 },
+  { name:'まほうの もり', icon:'🌲', min:10 },
+  { name:'アレンデールの おうこく', icon:'👑', min:15 },
+];
+
+// ===== STORY SCENES =====
+const STORY_SCENES = [
+  { narration:'アレンデールの おしろに、エルサと アナが すんでいました。', prompt:'おしろ', emoji:'🏰' },
+  { narration:'エルサは ゆきと こおりの まほうが つかえます。', prompt:'まほう', emoji:'✨' },
+  { narration:'ある ひ、エルサは ゆきやまへ にげだしました。', prompt:'ゆき', emoji:'❄️' },
+  { narration:'アナは エルサを さがしに ゆきの なかを あるきます。', prompt:'ともだち', emoji:'💕' },
+  { narration:'とちゅうで ゆきだるまの オラフに あいました！', prompt:'ゆきだるま', emoji:'⛄' },
+  { narration:'エルサは こおりの おしろを つくりました。', prompt:'こおり', emoji:'🧊' },
+  { narration:'みんなで ちからを あわせて、アレンデールを すくいます！', prompt:'なかま', emoji:'💪' },
+  { narration:'あいの ちからで すべてが もとに もどりました。', prompt:'あい', emoji:'❤️' },
+  { narration:'エルサと アナは いつまでも しあわせに くらしました。✨', prompt:null, emoji:'👑' },
+];
+
+// ===== BADGES =====
+const BADGES = [
+  {id:'first',name:'はじめの いっぽ',icon:'❄️',desc:'はじめて せいかい！',check:s=>s.totalCorrect>=1},
+  {id:'round',name:'ラウンドクリア',icon:'⭐',desc:'10もん クリア！',check:s=>s.roundsCleared>=1},
+  {id:'s5',name:'アイスのほし',icon:'🌟',desc:'5れんぞく せいかい！',check:s=>s.bestStreak>=5},
+  {id:'s10',name:'ゆきの おうかん',icon:'👑',desc:'10れんぞく せいかい！',check:s=>s.bestStreak>=10},
+  {id:'s20',name:'まほうの ちから',icon:'✨',desc:'20れんぞく せいかい！',check:s=>s.bestStreak>=20},
+  {id:'p100',name:'ゆきの けっしょう',icon:'💎',desc:'100てん とった！',check:s=>s.totalHighScore>=100},
+  {id:'p500',name:'アレンデールの たから',icon:'🏆',desc:'500てん とった！',check:s=>s.totalHighScore>=500},
+  {id:'t50',name:'がんばりや',icon:'🏅',desc:'50もん せいかい！',check:s=>s.totalCorrect>=50},
+  {id:'t100',name:'エルサの でし',icon:'❄️',desc:'100もん せいかい！',check:s=>s.totalCorrect>=100},
+  {id:'t300',name:'アナの なかま',icon:'💕',desc:'300もん せいかい！',check:s=>s.totalCorrect>=300},
+  {id:'t500',name:'でんせつ',icon:'🌠',desc:'500もん せいかい！',check:s=>s.totalCorrect>=500},
+  {id:'r5',name:'くりかえし れんしゅう',icon:'🔄',desc:'5ラウンド クリア！',check:s=>s.roundsCleared>=5},
+  {id:'r10',name:'れんしゅうの おに',icon:'🔥',desc:'10ラウンド クリア！',check:s=>s.roundsCleared>=10},
+  {id:'lv2',name:'2もじ マスター',icon:'📖',desc:'レベル2を クリア！',check:s=>s.level2Cleared===true},
+  {id:'lv3',name:'3もじ マスター',icon:'📚',desc:'レベル3を クリア！',check:s=>s.level3Cleared===true},
+];
+
+const REWARD_ICONS = ['❄','✨','⭐','💎','👑','🌟','💠','🔷'];
+const KEYBOARD_ROWS = [['Q','W','E','R','T','Y','U','I','O','P'],['A','S','D','F','G','H','J','K','L'],['Z','X','C','V','B','N','M']];
+
+const ELSA_CORRECT = ['すばらしいわ！','よくできました ✨','じょうずね！','さすがだわ！','かんぺきよ！','すてきだわ！','その ちょうしよ！'];
+const ELSA_WRONG = ['おちついて、もういちど','だいじょうぶ、ひょうを みてね','ゆっくりで いいのよ','まちがえても へいきよ ❄'];
+const ELSA_STREAK = ['まほうみたいに じょうず！❄✨','アレンデールも びっくり！','ゆきの けっしょうが かがやいてるわ✨'];
+const ANA_CORRECT = ['やったー！すごーい！','いぇーい！かっこいい！','さいこうだよー！','すっごーい！！','ばっちり！','てんさい！！','わーい！できたね！'];
+const ANA_WRONG = ['がんばれー！','つぎは できるよ！','もういっかい！','ファイトー！','だいじょうぶだよ！'];
+const ANA_STREAK = ['れんぞく！すごすぎるー！！','とまらないね！！すごい！','もう とめられないー！！'];
+
+// ===== STORAGE =====
+const SK = 'romaji_game_stats';
+function defStats(){return{charStats:{},totalCorrect:0,totalHighScore:0,bestStreak:0,roundsCleared:0,badges:[],level2Cleared:false,level3Cleared:false,todayDate:'',todayCount:0};}
+function loadStats(){try{const d=JSON.parse(localStorage.getItem(SK));if(!d)return defStats();const df=defStats();for(const k of Object.keys(df))if(!(k in d))d[k]=df[k];return d;}catch{return defStats();}}
+function saveStats(s){localStorage.setItem(SK,JSON.stringify(s));}
+function recordChar(kana,ok){const s=loadStats();if(!s.charStats[kana])s.charStats[kana]={c:0,t:0};s.charStats[kana].t++;if(ok)s.charStats[kana].c++;saveStats(s);}
+function recordCorrect(){const s=loadStats();s.totalCorrect++;const d=new Date().toISOString().slice(0,10);if(s.todayDate!==d){s.todayDate=d;s.todayCount=0;}s.todayCount++;saveStats(s);}
+function recordRound(gl){const s=loadStats();s.roundsCleared++;if(gl===2)s.level2Cleared=true;if(gl===3)s.level3Cleared=true;saveStats(s);}
+function updHigh(v){const s=loadStats();if(v>s.totalHighScore){s.totalHighScore=v;saveStats(s);}}
+function updStreak(v){const s=loadStats();if(v>s.bestStreak){s.bestStreak=v;saveStats(s);}}
+
+// ===== ADAPTIVE =====
+function charWeight(kana){const s=loadStats(),c=s.charStats[kana];if(!c||c.t===0)return 1.5;return Math.max(0.3,2-(c.c/c.t)*1.7);}
+function wPick(chars){if(!chars.length)return null;const w=chars.map(c=>({c,w:charWeight(c.kana)}));const t=w.reduce((s,i)=>s+i.w,0);let r=Math.random()*t;for(const i of w){r-=i.w;if(r<=0)return i.c;}return w[w.length-1].c;}
+function wordWeight(word){let m=0;for(const c of word){const w=charWeight(c);if(w>m)m=w;}return m;}
+function wPickWord(words){if(!words.length)return null;const w=words.map(i=>({i,w:wordWeight(i.word)}));const t=w.reduce((s,x)=>s+x.w,0);let r=Math.random()*t;for(const x of w){r-=x.w;if(r<=0)return x.i;}return w[w.length-1].i;}
+
+// ===== BADGES =====
+let badgeQ=[],badgeShowing=false;
+function checkBadges(){const s=loadStats();const nb=[];for(const b of BADGES)if(!s.badges.includes(b.id)&&b.check(s)){s.badges.push(b.id);nb.push(b);}if(nb.length){saveStats(s);badgeQ.push(...nb);if(!badgeShowing)showNextBadge();updateCostume();}}
+function showNextBadge(){if(!badgeQ.length){badgeShowing=false;return;}badgeShowing=true;const b=badgeQ.shift();document.getElementById('badgeToastIcon').textContent=b.icon;document.getElementById('badgeToastName').textContent=b.name;playBadgeSound();const t=document.getElementById('badgeToast');t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),3000);setTimeout(showNextBadge,3500);}
+
+// ===== MODALS =====
+function showCollection(){const s=loadStats(),g=document.getElementById('badgeGrid');let h='',u=0;for(const b of BADGES){const ok=s.badges.includes(b.id);if(ok)u++;h+=`<div class="badge-card ${ok?'unlocked':'locked'}"><span class="badge-icon">${ok?b.icon:'❓'}</span><div class="badge-name">${ok?b.name:'???'}</div><div class="badge-desc">${ok?b.desc:'まだ ゲットしてないよ'}</div></div>`;}g.innerHTML=h;document.getElementById('unlockedCount').textContent=u;document.getElementById('totalBadgeCount').textContent=BADGES.length;document.getElementById('collectionModal').classList.add('visible');}
+function showStats(){const s=loadStats();document.getElementById('statTotal').textContent=s.totalCorrect;document.getElementById('statStreak').textContent=s.bestStreak;document.getElementById('statHigh').textContent=s.totalHighScore;document.getElementById('statRounds').textContent=s.roundsCleared;buildAccChart(s);document.getElementById('statsModal').classList.add('visible');}
+function buildAccChart(stats){const t=document.getElementById('accuracyChart');let h='<tr><th></th><th>あ</th><th>い</th><th>う</th><th>え</th><th>お</th></tr>';let sep=false;ROMAJI_TABLE.forEach(row=>{if(row.dakuten&&!sep){h+='<tr><td colspan="6" style="text-align:center;font-size:10px;font-weight:900;color:#9c27b0;padding:3px;">だくおん</td></tr>';sep=true;}h+=`<tr><td class="acc-row-header" style="font-size:11px;font-weight:900;color:var(--text-mid)">${row.row}</td>`;row.chars.forEach(ch=>{if(!ch.kana){h+='<td class="acc-none"></td>';}else{const s=stats.charStats[ch.kana];let cls='acc-none',txt='-';if(s&&s.t>0){const p=Math.round(s.c/s.t*100);txt=p+'%';cls=p>=80?'acc-great':p>=50?'acc-ok':'acc-weak';}h+=`<td class="${cls}"><span style="font-size:10px">${ch.kana}</span><br><span style="font-size:9px">${txt}</span></td>`;}});h+='</tr>';});t.innerHTML=h;}
+function hideModal(id){document.getElementById(id).classList.remove('visible');}
+
+// ===== STATE =====
+let score=0,streak=0,bestStreak=0,currentQuestion=null,currentCharIndex=0,currentCharInput='',currentInput='';
+let questionsAnswered=0,totalQuestions=10,level=14,gameLevel=1,audioCtx=null,isLocked=false;
+let currentMode='normal'; // normal, timeattack, story
+let hardMode=false;
+let taTimer=null,taRemaining=60,taDuration=60,taCorrect=0,taTotal=0;
+let storyIdx=0,lastStageIdx=-1;
+
+// ===== HELPERS =====
+function getCharRow(k){for(let i=0;i<ROMAJI_TABLE.length;i++)if(ROMAJI_TABLE[i].chars.some(c=>c.kana===k))return i;return -1;}
+function lookupChar(k){for(const r of ROMAJI_TABLE){const f=r.chars.find(c=>c.kana===k);if(f)return f;}return null;}
+function isWordAvail(w){for(const c of w.word){const r=getCharRow(c);if(r===-1||r>level)return false;}return true;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+// ===== AUDIO =====
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+function snd(f,d,t='sine',v=0.12){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d);}
+function playCorrectSound(){snd(659,.2,'sine',.1);setTimeout(()=>snd(784,.2,'sine',.1),80);setTimeout(()=>snd(988,.3,'sine',.1),160);setTimeout(()=>snd(1319,.4,'sine',.08),240);}
+function playWrongSound(){snd(250,.25,'triangle',.1);}
+function playTypeSound(){snd(1200,.04,'sine',.06);}
+function playVictorySound(){[523,587,659,784,880,1047].forEach((n,i)=>setTimeout(()=>snd(n,.25,'sine',.1),i*120));}
+function playBadgeSound(){snd(523,.15);setTimeout(()=>snd(659,.15),100);setTimeout(()=>snd(784,.15),200);setTimeout(()=>snd(1047,.3,'sine',.12),300);setTimeout(()=>snd(1319,.4,'sine',.1),450);}
+
+// ===== SNOWFALL =====
+function createSnow(el,n=30){const f=['❄','❅','❆','✦','✧','·'];for(let i=0;i<n;i++){const s=document.createElement('div');s.className='snowflake';s.textContent=pick(f);s.style.left=Math.random()*100+'%';s.style.fontSize=(10+Math.random()*18)+'px';s.style.animationDuration=(6+Math.random()*10)+'s';s.style.animationDelay=(Math.random()*10)+'s';s.style.opacity=0.3+Math.random()*0.5;el.appendChild(s);}}
+
+// ===== BUILD CHART =====
+function buildChart(){const t=document.getElementById('chartTable');const vowels=[['あ','a'],['い','i'],['う','u'],['え','e'],['お','o']];let h='<tr><th></th>';vowels.forEach(v=>{h+=`<th><span class="th-kana">${v[0]}<br></span><span class="th-romaji">${v[1]}</span></th>`;});h+='</tr>';let sep=false;ROMAJI_TABLE.forEach(r=>{if(r.dakuten&&!sep){h+='<tr class="chart-separator"><td colspan="6">── だくおん ──</td></tr>';sep=true;}const cl=r.consonant||'-';const hc=r.dakuten?'row-header dakuten-header':'row-header';h+=`<tr><td class="${hc}"><span class="rh-kana">${r.row}<br></span><span class="rh-romaji">${cl}</span></td>`;r.chars.forEach(c=>{if(!c.kana)h+='<td style="background:rgba(200,220,240,.3)"></td>';else h+=`<td id="cell-${c.kana}"><span class="chart-kana">${c.kana}</span><span class="chart-romaji">${c.romaji}</span></td>`;});h+='</tr>';});t.innerHTML=h;}
+
+// ===== BUILD KEYBOARD =====
+function buildKB(){const c=document.getElementById('keyboardHint');let h='';KEYBOARD_ROWS.forEach(r=>r.forEach(k=>{h+=`<div class="key-cap" id="key-${k}">${k}</div>`;}));c.innerHTML=h;}
+
+// ===== STAGE SYSTEM =====
+function getStageIdx(){const s=loadStats();let idx=0;for(let i=STAGES.length-1;i>=0;i--)if(s.roundsCleared>=STAGES[i].min){idx=i;break;}return idx;}
+function updateStage(){const idx=getStageIdx();document.body.className='stage-'+idx;document.getElementById('stageIndicator').textContent=STAGES[idx].icon+' '+STAGES[idx].name;if(lastStageIdx>=0&&idx>lastStageIdx){showStageTrans(idx);}lastStageIdx=idx;}
+function showStageTrans(idx){const s=STAGES[idx];document.getElementById('stageTransIcon').textContent=s.icon;document.getElementById('stageTransText').textContent='ステージ'+(idx+1);document.getElementById('stageTransSub').textContent=s.name;const el=document.getElementById('stageTrans');el.classList.add('visible');playVictorySound();setTimeout(()=>el.classList.remove('visible'),3000);}
+
+// ===== COSTUME SYSTEM =====
+function updateCostume(){const s=loadStats(),n=s.badges.length;const els=[...document.querySelectorAll('.char-avatar, .ana-avatar-small')];els.forEach(e=>{e.classList.remove('costume-silver','costume-gold','costume-diamond','costume-ultimate');if(n>=13)e.classList.add('costume-ultimate');else if(n>=10)e.classList.add('costume-diamond');else if(n>=6)e.classList.add('costume-gold');else if(n>=3)e.classList.add('costume-silver');});}
+
+// ===== GAME LOGIC =====
+function getAvailChars(){const c=[];for(let i=0;i<=level&&i<ROMAJI_TABLE.length;i++)ROMAJI_TABLE[i].chars.forEach(ch=>{if(ch.kana&&ch.romaji)c.push(ch);});return c;}
+
+function pickNext(){
+  if(gameLevel===4){
+    // Frozen challenge
+    const avail=WORD_LIST_FROZEN.filter(isWordAvail);
+    if(!avail.length){const c=getAvailChars();return{chars:[pick(c)],displayKana:c[0].kana,emoji:'❄️'};}
+    let p;let att=0;do{p=wPickWord(avail);att++;}while(currentQuestion&&currentQuestion.displayKana===p.word&&avail.length>1&&att<20);
+    const co=[...p.word].map(k=>lookupChar(k));
+    return{chars:co,displayKana:p.word,emoji:p.emoji};
+  }
+  if(gameLevel===1){
+    const c=getAvailChars();let n;let att=0;do{n=wPick(c);att++;}while(currentQuestion&&currentQuestion.displayKana===n.kana&&c.length>1&&att<20);
+    return{chars:[n],displayKana:n.kana,emoji:''};
+  }
+  const wl=gameLevel===2?WORD_LIST_2:WORD_LIST_3;
+  const avail=wl.filter(isWordAvail);
+  if(!avail.length){const c=getAvailChars();const ps=[];for(let i=0;i<gameLevel;i++)ps.push(c[Math.floor(Math.random()*c.length)]);return{chars:ps,displayKana:ps.map(x=>x.kana).join(''),emoji:''};}
+  let p;let att=0;do{p=wPickWord(avail);att++;}while(currentQuestion&&currentQuestion.displayKana===p.word&&avail.length>1&&att<20);
+  const co=[...p.word].map(k=>lookupChar(k));
+  return{chars:co,displayKana:p.word,emoji:p.emoji};
+}
+
+function getCurChar(){return currentQuestion.chars[currentCharIndex];}
+function getFullRomaji(){return currentQuestion.chars.map(c=>c.romaji).join('');}
+
+function hlChart(kana){
+  document.querySelectorAll('.chart-table td.highlight,.chart-table td.cross-hl,.chart-table th.cross-hl-th,.chart-table td.row-header.cross-hl').forEach(t=>t.classList.remove('highlight','cross-hl','cross-hl-th'));
+  if(hardMode){
+    let rowIdx=-1,colIdx=-1;
+    for(let r=0;r<ROMAJI_TABLE.length;r++){const ci=ROMAJI_TABLE[r].chars.findIndex(c=>c.kana===kana);if(ci!==-1){rowIdx=r;colIdx=ci;break;}}
+    if(rowIdx===-1)return;
+    ROMAJI_TABLE[rowIdx].chars.forEach(c=>{if(c.kana){const cell=document.getElementById('cell-'+c.kana);if(cell)cell.classList.add(c.kana===kana?'highlight':'cross-hl');}});
+    ROMAJI_TABLE.forEach((r,ri)=>{if(ri===rowIdx)return;const c=r.chars[colIdx];if(c&&c.kana){const cell=document.getElementById('cell-'+c.kana);if(cell)cell.classList.add('cross-hl');}});
+    const ths=document.querySelectorAll('#chartTable tr:first-child th');if(ths[colIdx+1])ths[colIdx+1].classList.add('cross-hl-th');
+    const mainCell=document.getElementById('cell-'+kana);
+    if(mainCell){const rh=mainCell.parentElement.querySelector('.row-header');if(rh)rh.classList.add('cross-hl');mainCell.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  } else {
+    const c=document.getElementById('cell-'+kana);if(c){c.classList.add('highlight');c.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  }
+}
+
+function updateHint(){
+  const h=document.getElementById('targetHint');
+  if(hardMode){h.innerHTML='';return;}
+  let html='';
+  currentQuestion.chars.forEach((ch,ci)=>{if(ci>0)html+='<span style="display:inline-block;width:12px"></span>';
+  for(let i=0;i<ch.romaji.length;i++){let cls='';if(ci<currentCharIndex)cls='typed';else if(ci===currentCharIndex){if(i<currentCharInput.length)cls='typed';else if(i===currentCharInput.length)cls='current';}
+  html+=`<span class="hint-letter ${cls}">${ch.romaji[i]}</span>`;}});h.innerHTML=html;
+}
+
+function hlKB(){document.querySelectorAll('.key-cap').forEach(k=>k.classList.remove('active','next-key'));if(hardMode)return;const ch=getCurChar();if(!ch)return;const ni=currentCharInput.length;if(ni<ch.romaji.length){const nk=ch.romaji[ni].toUpperCase();const ke=document.getElementById('key-'+nk);if(ke)ke.classList.add('next-key');}}
+
+function setElsa(t){document.getElementById('elsaSpeech').textContent=t;}
+function setAna(t,type=''){const e=document.getElementById('anaSpeech');e.textContent=t;e.className='ana-speech-bubble'+(type?' '+type:'');const a=document.getElementById('anaAvatar');a.classList.remove('bounce');void a.offsetHeight;a.classList.add('bounce');}
+
+function setNewQ(){
+  currentQuestion=pickNext();currentCharIndex=0;currentCharInput='';currentInput='';isLocked=false;
+  const k=document.getElementById('targetKana');k.textContent=currentQuestion.displayKana;
+  k.style.animation='none';void k.offsetHeight;k.style.animation='bounce-in .5s cubic-bezier(.68,-.55,.265,1.55)';
+  const len=currentQuestion.displayKana.length;
+  k.style.fontSize=len<=1?'160px':len<=2?'120px':len<=3?'90px':len<=4?'72px':'60px';
+  document.getElementById('targetEmoji').textContent=currentQuestion.emoji||'';
+  document.getElementById('inputDisplay').textContent='';
+  document.getElementById('keyboardHint').style.display=hardMode?'none':'';
+  document.getElementById('chartTable').classList.toggle('hard-mode',hardMode);
+  const fr=getFullRomaji();const es=currentQuestion.emoji?' '+currentQuestion.emoji:'';
+  if(hardMode){setElsa(`「${currentQuestion.displayKana}」だよ。ひょうを ヒントに がんばって！❄`);}
+  else{setElsa(`「${currentQuestion.displayKana}」${es}は「${fr}」よ ❄`);}
+  if(gameLevel>=2){const em=currentQuestion.emoji?currentQuestion.emoji+' ':'';setAna(`${em}チャレンジ！がんばって！`);}
+  else setAna('つぎの もじだよ！がんばって！');
+  hlChart(getCurChar().kana);updateHint();hlKB();updateProgress();
+}
+
+function isValid(ch,inp){return[ch.romaji,...(ch.alt||[])].some(o=>o.startsWith(inp));}
+function isComplete(ch,inp){return[ch.romaji,...(ch.alt||[])].includes(inp);}
+function isQDone(){return currentCharIndex>=currentQuestion.chars.length;}
+
+function spawnReward(x,y){const e=document.createElement('div');e.className='snow-reward';e.textContent=pick(REWARD_ICONS);e.style.left=(x+(Math.random()-.5)*80)+'px';e.style.top=y+'px';document.getElementById('gamePanel').appendChild(e);setTimeout(()=>e.remove(),1500);}
+function spawnConfetti(){const colors=['#81d4fa','#4fc3f7','#b39ddb','#e1bee7','#80deea','#fff','#e3f2fd'];const p=document.getElementById('gamePanel'),r=p.getBoundingClientRect();for(let i=0;i<30;i++){const d=document.createElement('div');d.className='ice-confetti';d.style.background=pick(colors);d.style.left=Math.random()*r.width+'px';d.style.top=(80+Math.random()*120)+'px';d.style.animationDuration=(.8+Math.random())+'s';d.style.animationDelay=Math.random()*.4+'s';const sz=6+Math.random()*12;d.style.width=sz+'px';d.style.height=sz+'px';d.style.borderRadius=Math.random()>.5?'50%':'2px';p.appendChild(d);setTimeout(()=>d.remove(),2500);}}
+
+function updateProgress(){
+  if(currentMode==='timeattack'){
+    document.getElementById('progressLabel').textContent=`せいかい: ${taCorrect}`;
+    document.getElementById('progressFill').style.width=(taRemaining/taDuration*100)+'%';
+    return;
+  }
+  const pct=Math.min(questionsAnswered/totalQuestions*100,100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=`${questionsAnswered} / ${totalQuestions} もん`;
+}
+function updateScore(){document.getElementById('scoreValue').textContent=score;document.getElementById('streakValue').textContent=streak;}
+
+// ===== KEY HANDLER =====
+function handleKey(key){
+  initAudio();
+  if(currentMode==='story'){handleStoryKey(key);return;}
+  if(!currentQuestion||isLocked)return;
+  const l=key.toLowerCase();if(!/^[a-z]$/.test(l))return;
+  const ke=document.getElementById('key-'+l.toUpperCase());if(ke){ke.classList.add('active');setTimeout(()=>ke.classList.remove('active'),150);}
+  const ch=getCurChar(),test=currentCharInput+l;
+  if(isValid(ch,test)){
+    currentCharInput=test;currentInput+=l;playTypeSound();
+    document.getElementById('inputDisplay').textContent=currentInput;
+    if(isComplete(ch,currentCharInput)){
+      recordChar(ch.kana,true);currentCharIndex++;currentCharInput='';
+      if(isQDone()){
+        isLocked=true;
+        const bonus=gameLevel===1?10:gameLevel===2?25:40;
+        score+=bonus+streak*2;streak++;questionsAnswered++;
+        if(streak>bestStreak)bestStreak=streak;
+        recordCorrect();updHigh(score);updStreak(streak);updateScore();playCorrectSound();
+        if(streak>=5)setElsa(pick(ELSA_STREAK));else setElsa(pick(ELSA_CORRECT));
+        if(streak>=5)setAna(pick(ANA_STREAK),'correct');else setAna(pick(ANA_CORRECT),'correct');
+        const kr=document.getElementById('targetKana').getBoundingClientRect(),pr=document.getElementById('gamePanel').getBoundingClientRect();
+        const cx=kr.left-pr.left+kr.width/2,cy=kr.top-pr.top+kr.height/2;
+        for(let i=0;i<4;i++)setTimeout(()=>spawnReward(cx,cy),i*120);
+        if(streak>=3)spawnConfetti();
+        checkBadges();
+        if(currentMode==='timeattack'){
+          taCorrect++;taTotal++;updateProgress();
+          setTimeout(()=>{if(taRemaining>0)setNewQ();},600);
+        } else {
+          setTimeout(()=>{if(questionsAnswered>=totalQuestions)showRoundComplete();else setNewQ();},1200);
+        }
+      } else { hlChart(getCurChar().kana); }
+    }
+    updateHint();hlKB();
+  } else {
+    playWrongSound();recordChar(ch.kana,false);streak=0;updateScore();
+    if(currentMode==='timeattack')taTotal++;
+    setElsa(pick(ELSA_WRONG));setAna(pick(ANA_WRONG),'wrong');
+    currentCharIndex=0;currentCharInput='';currentInput='';
+    document.getElementById('inputDisplay').textContent='';
+    hlChart(getCurChar().kana);updateHint();hlKB();
+  }
+}
+
+// ===== ROUND COMPLETE =====
+function showRoundComplete(){
+  isLocked=true;spawnConfetti();setTimeout(spawnConfetti,400);setTimeout(spawnConfetti,800);
+  playVictorySound();updHigh(score);recordRound(gameLevel);
+  setElsa('ぜんもん クリア！すばらしいわ ✨❄');setAna('おめでとーーー！！さいこう！！','correct');
+  document.getElementById('roundMessage').textContent=`クリア！ ${score}てん ✨`;
+  document.getElementById('roundOverlay').classList.add('visible');
+  checkBadges();updateStage();
+  setTimeout(()=>{document.getElementById('roundOverlay').classList.remove('visible');questionsAnswered=0;score=0;streak=0;updateScore();setNewQ();},4000);
+}
+
+// ===== TIME ATTACK =====
+function startTimeAttack(){
+  document.getElementById('taResult').classList.remove('visible');
+  taDuration=parseInt(document.getElementById('timeSelect').value);
+  taRemaining=taDuration;taCorrect=0;taTotal=0;score=0;streak=0;
+  updateScore();
+  document.getElementById('timerDisplay').classList.add('active');
+  document.getElementById('timerValue').textContent=taRemaining;
+  document.getElementById('timerValue').classList.remove('warning');
+  isLocked=false;setNewQ();
+  if(taTimer)clearInterval(taTimer);
+  taTimer=setInterval(()=>{
+    taRemaining--;
+    document.getElementById('timerValue').textContent=taRemaining;
+    if(taRemaining<=10)document.getElementById('timerValue').classList.add('warning');
+    updateProgress();
+    if(taRemaining<=0){clearInterval(taTimer);taTimer=null;endTimeAttack();}
+  },1000);
+}
+function endTimeAttack(){
+  isLocked=true;document.getElementById('timerDisplay').classList.remove('active');
+  document.getElementById('taCorrect').textContent=taCorrect;
+  document.getElementById('taScore').textContent=score;
+  document.getElementById('taAccuracy').textContent=taTotal>0?Math.round(taCorrect/taTotal*100)+'%':'0%';
+  document.getElementById('taResult').classList.add('visible');
+  playVictorySound();spawnConfetti();updHigh(score);checkBadges();
+}
+
+// ===== STORY MODE =====
+function startStory(){
+  storyIdx=0;currentMode='story';
+  document.getElementById('storyOverlay').classList.add('visible');
+  showScene();
+}
+function showScene(){
+  const sc=STORY_SCENES[storyIdx];
+  document.getElementById('storyEmoji').textContent=sc.emoji;
+  document.getElementById('storyNarration').textContent=sc.narration;
+  document.getElementById('storyProgress').textContent=`${storyIdx+1} / ${STORY_SCENES.length}`;
+  if(sc.prompt){
+    const co=[...sc.prompt].map(k=>lookupChar(k));
+    document.getElementById('storyKana').textContent=sc.prompt;
+    document.getElementById('storyInputDisplay').textContent='';
+    currentQuestion={chars:co,displayKana:sc.prompt,emoji:sc.emoji};
+    currentCharIndex=0;currentCharInput='';currentInput='';isLocked=false;
+    updateStoryHint();
+  } else {
+    // Final scene
+    document.getElementById('storyKana').textContent='';
+    document.getElementById('storyHint').innerHTML='<div class="story-complete">おしまい！すばらしかったね ✨👑</div>';
+    document.getElementById('storyInputDisplay').textContent='';
+    isLocked=true;playVictorySound();spawnConfetti();
+    recordRound(gameLevel);checkBadges();updateStage();
+    setTimeout(()=>{document.getElementById('storyOverlay').classList.remove('visible');currentMode='normal';setNewQ();},5000);
+  }
+}
+function updateStoryHint(){
+  const h=document.getElementById('storyHint');let html='';
+  currentQuestion.chars.forEach((ch,ci)=>{if(ci>0)html+='<span style="display:inline-block;width:8px"></span>';
+  for(let i=0;i<ch.romaji.length;i++){let cls='';if(ci<currentCharIndex)cls='typed';else if(ci===currentCharIndex){if(i<currentCharInput.length)cls='typed';else if(i===currentCharInput.length)cls='current';}
+  html+=`<span class="hint-letter ${cls}">${ch.romaji[i]}</span>`;}});h.innerHTML=html;
+}
+function handleStoryKey(key){
+  if(!currentQuestion||isLocked)return;
+  const l=key.toLowerCase();if(!/^[a-z]$/.test(l))return;
+  const ch=getCurChar(),test=currentCharInput+l;
+  if(isValid(ch,test)){
+    currentCharInput=test;currentInput+=l;playTypeSound();
+    document.getElementById('storyInputDisplay').textContent=currentInput;
+    if(isComplete(ch,currentCharInput)){
+      recordChar(ch.kana,true);currentCharIndex++;currentCharInput='';
+      if(isQDone()){
+        isLocked=true;playCorrectSound();recordCorrect();checkBadges();
+        // Animate emoji
+        const em=document.getElementById('storyEmoji');em.style.animation='none';void em.offsetHeight;em.style.animation='bounce-in .6s ease';
+        storyIdx++;
+        if(storyIdx>=STORY_SCENES.length){
+          document.getElementById('storyKana').textContent='';
+          document.getElementById('storyHint').innerHTML='<div class="story-complete">おしまい！すばらしかったね ✨👑</div>';
+          document.getElementById('storyInputDisplay').textContent='';
+          playVictorySound();spawnConfetti();recordRound(gameLevel);checkBadges();updateStage();
+          setTimeout(()=>{document.getElementById('storyOverlay').classList.remove('visible');currentMode='normal';setNewQ();},5000);
+        } else {
+          setTimeout(showScene,1500);
+        }
+      }
+    }
+    updateStoryHint();
+  } else {
+    playWrongSound();recordChar(ch.kana,false);
+    currentCharIndex=0;currentCharInput='';currentInput='';
+    document.getElementById('storyInputDisplay').textContent='';
+    updateStoryHint();
+  }
+}
+
+// ===== START SCREEN =====
+function updateStart(){const s=loadStats(),d=new Date().toISOString().slice(0,10);document.getElementById('startToday').textContent=s.todayDate===d?s.todayCount:0;document.getElementById('startBadge').textContent=s.badges.length;document.getElementById('startBadgeT').textContent=BADGES.length;document.getElementById('startHigh').textContent=s.totalHighScore;}
+
+// ===== MODE SWITCH =====
+function switchMode(m){
+  currentMode=m;
+  if(taTimer){clearInterval(taTimer);taTimer=null;}
+  document.getElementById('timerDisplay').classList.remove('active');
+  document.getElementById('taResult').classList.remove('visible');
+  document.getElementById('storyOverlay').classList.remove('visible');
+  document.getElementById('timeSelect').style.display=m==='timeattack'?'':'none';
+  document.getElementById('progressContainer').style.display=m==='story'?'none':'';
+  document.getElementById('gameLevelSelect').style.display=m==='story'?'none':'';
+  document.getElementById('levelSelect').style.display=m==='story'?'none':'';
+  document.getElementById('difficultySelect').style.display=m==='story'?'none':'';
+
+  if(m==='story'){startStory();}
+  else if(m==='timeattack'){questionsAnswered=0;score=0;streak=0;updateScore();startTimeAttack();}
+  else{questionsAnswered=0;score=0;streak=0;updateScore();setNewQ();}
+}
+
+// ===== INIT =====
+function init(){
+  createSnow(document.getElementById('snowfall'),25);
+  createSnow(document.getElementById('startSnowfall'),40);
+  buildChart();buildKB();updateStart();
+  lastStageIdx=getStageIdx();updateStage();updateCostume();
+
+  document.getElementById('startBtn').addEventListener('click',()=>{initAudio();document.getElementById('startScreen').classList.add('hidden');setNewQ();});
+  document.getElementById('levelSelect').addEventListener('change',e=>{level=parseInt(e.target.value);questionsAnswered=0;if(currentMode==='normal')setNewQ();});
+  document.getElementById('gameLevelSelect').addEventListener('change',e=>{gameLevel=parseInt(e.target.value);questionsAnswered=0;score=0;streak=0;updateScore();if(currentMode!=='story')setNewQ();});
+  document.getElementById('modeSelect').addEventListener('change',e=>{switchMode(e.target.value);});
+  document.getElementById('difficultySelect').addEventListener('change',e=>{
+    hardMode=e.target.value==='hard';
+    document.getElementById('keyboardHint').style.display=hardMode?'none':'';
+    document.getElementById('chartTable').classList.toggle('hard-mode',hardMode);
+    if(currentQuestion&&currentMode!=='story'){hlChart(getCurChar().kana);updateHint();hlKB();}
+  });
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){hideModal('collectionModal');hideModal('statsModal');return;}
+    if(document.getElementById('startScreen').classList.contains('hidden')){
+      if(document.getElementById('collectionModal').classList.contains('visible')||document.getElementById('statsModal').classList.contains('visible'))return;
+      e.preventDefault();handleKey(e.key);
+    } else {if(e.key==='Enter'||e.key===' ')document.getElementById('startBtn').click();}
+  });
+}
+init();
+</script>
+</body>
+</html>
